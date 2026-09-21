@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marga Mbande — Press Kit &amp; Dossier Digital / Impreso B&amp;N</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oxygen:wght@300;400;700&display=swap');
+
+  :root {
+    --bg-img: url("imgs/Collage_1920x1080.png");
+    --bg-img-mobile: url("imgs/Version_1_Fondo_Collage%20(1).png");
+    --ink: #f5f2ec;
+    --ink-dim: rgba(245,242,236,0.82);
+    --ink-faint: rgba(245,242,236,0.55);
+    --line: rgba(255,255,255,0.14);
+    --gold: #d9b98a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    background: #0b0b0d;
+    color: var(--ink);
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* Fondo: imagen completa, nítida y sin recortes (horizontal en escritorio) */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: var(--bg-img) center top / cover no-repeat;
+    filter: brightness(0.72) saturate(1.05);
+    transition: filter 0.7s ease;
+  }
+
+  /* Fondo vertical en móvil */
+  @media (max-width: 700px) {
+    body::before { background-image: var(--bg-img-mobile); }
+  }
+
+  body.dimmed::before {
+    filter: blur(20px) brightness(0.6) saturate(1);
+    transform: scale(1.05);
+  }
+
+  /* Pasaporte: fondo aún más mate y apagado */
+  body.dimmed:has(#page-pasaporte.active)::before {
+    filter: blur(26px) brightness(0.52) saturate(0.8);
+  }
+
+  .passport-figure {
+    margin: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+
+  .passport-figure img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(100vh - 230px);
+    margin: 0 auto;
+  }
+
+  /* Vistas (páginas) */
+  .page {
+    position: relative;
+    z-index: 1;
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .page.active { display: flex; }
+
+  .card {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    /* Velo fino: se aprecia el collage detrás sin perder lectura */
+    background: rgba(12,12,16,0.32);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: none;
+    border-radius: 0;
+    padding: clamp(28px, 5vw, 72px);
+    animation: pageIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* En pantallas pequeñas el fondo es más cargado: un pelín más de velo para mantener la legibilidad */
+  @media (max-width: 700px) {
+    .card { background: rgba(12,12,16,0.48); }
+  }
+
+  /* El contenido interno mantiene un ancho cómodo y centrado */
+  .card > * {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(26px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .page-header img { width: 44px; height: 44px; object-fit: contain; opacity: 0.9; }
+
+  .back-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 2px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 5px;
+    transition: color 0.25s ease, text-decoration-color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .back-btn:hover {
+    color: #fff;
+    text-decoration-color: rgba(255,255,255,0.7);
+  }
+
+  h1, h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    display: block;
+
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .page-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .page-num {
+    font-size: 0.5em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
+    vertical-align: super;
+    margin-right: 14px;
+  }
+
+  /* Enlaces dentro de la ficha */
+  .rider-row a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217,185,138,0.4);
+  }
+
+  .rider-row a:hover { border-bottom-color: var(--gold); }
+
+  /* Tipografía de lectura */
+  .lead {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 700;
+    font-size: 1.08rem;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: 3px solid var(--gold);
+    padding-left: 16px;
+    margin: 4px 0 22px;
+  }
+
+  p.body {
+    line-height: 1.72;
+    color: var(--ink-dim);
+    margin-bottom: 13px;
+    font-size: 0.92rem;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+  }
+
+  p.body strong { color: var(--ink); font-weight: 700; }
+
+  /* Bloque de bio: editorial, tipográfico, sin caja (como la portada) */
+  .bio-block {
+    max-width: 860px;
+    margin: 0 auto;
+    padding-top: 18px;
+    border-top: 2px solid var(--ink);
+  }
+
+  /* Primera frase como titular de portada (contenida: el resto lee a cuerpo normal) */
+  #bio-larga p.body:first-of-type,
+  .bio-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.25rem, 2.3vw, 1.65rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.4);
+    margin: 26px 0 22px;
+  }
+
+  .bio-block p.body {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+
+  .bio-block p.body:last-child { margin-bottom: 0; }
+
+  /* Tarjetas emergentes en la bio (hover / focus / tap) */
+  .hovercard {
+    position: relative;
+    color: var(--gold);
+    font-weight: 700;
+    cursor: help;
+    border-bottom: 1px dashed rgba(217,185,138,0.55);
+  }
+
+  .hovercard--link { cursor: pointer; }
+
+  .hovercard-pop {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    width: 240px;
+    padding: 9px;
+    background: rgba(12,12,16,0.94);
+    border: 1px solid rgba(217,185,138,0.35);
+    border-radius: 14px;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    z-index: 60;
+    text-align: center;
+  }
+
+  .hovercard-pop img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 9px;
+  }
+
+  .hovercard-pop small {
+    display: block;
+    margin-top: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  .hovercard-pop strong {
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hovercard-pop a {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217,185,138,0.4);
+  }
+
+  .hovercard:hover .hovercard-pop,
+  .hovercard:focus .hovercard-pop,
+  .hovercard:focus-visible .hovercard-pop,
+  .hovercard:focus-within .hovercard-pop {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Copiar bio */
+  .copy-btn {
+    margin-top: 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(217,185,138,0.12);
+    border: 1px solid rgba(217,185,138,0.5);
+    border-radius: 50px;
+    color: var(--gold);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .copy-btn:hover { background: rgba(217,185,138,0.12); border-color: var(--gold); }
+
+  .word-count {
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.5px;
+  }
+
+  /* Hitos / Pasaporte */
+  .mini-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    margin-bottom: 24px;
+  }
+
+  .mini-meta span { font-size: 0.8rem; color: var(--ink-dim); }
+  .mini-meta strong { color: var(--ink); font-weight: 500; }
+
+  .milestone {
+    display: flex;
+    gap: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .milestone:last-child { border-bottom: none; }
+
+  .milestone .road {
+    flex: 0 0 auto;
+    min-width: 82px;
+
+    font-size: 0.8rem;
+    color: var(--gold);
+    line-height: 1.3;
+    padding-top: 2px;
+  }
+
+  .milestone .desc {
+    font-size: 0.88rem;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  /* Rider: ficha técnica (tabla, sin cards) */
+  .rider {
+    border-top: 2px solid var(--ink);
+    margin-top: 4px;
+  }
+
+  .rider-head,
+  .rider-row {
+    display: grid;
+    grid-template-columns: minmax(130px, 175px) 1fr;
+    gap: 4px 24px;
+    padding: 9px 0;
+  }
+
+  .rider-head {
+    padding: 8px 0 6px;
+    border-bottom: 1px solid var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .rider-head span:last-child { text-align: left; }
+
+  .rider-row { border-bottom: 1px solid var(--line); break-inside: avoid; }
+  .rider-row:last-child { border-bottom: none; }
+
+  .rider-row dt {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+
+  .rider-row dd { margin: 0; }
+  .rider-row dd ul { list-style: none; }
+  .rider-row dd li {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+
+  .rider-row dd li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+  }
+
+  /* Material gráfico descargable (dentro de la ficha) */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .photo-item { margin: 0; }
+
+  .photo-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    transition: filter 0.3s ease;
+  }
+
+  .photo-item img:hover { filter: brightness(1.08); }
+
+  .photo-item figcaption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 7px 0 5px;
+    line-height: 1.4;
+  }
+
+  .photo-dl {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217,185,138,0.4);
+  }
+
+  .photo-dl:hover { border-bottom-color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .rider-head { display: none; }
+    .rider-row { grid-template-columns: 1fr; gap: 3px 0; padding: 9px 0; }
+  }
+
+  /* Portada: fondo limpio, sin tarjeta, contenido arriba e izquierda */
+  #page-home {
+    align-items: flex-start;
+    padding: clamp(28px, 6vh, 64px) clamp(20px, 4vw, 48px);
+  }  /* Vídeo directo: centrado, pie encima, sin marco */
+  .video-block {
+    max-width: 720px;
+    margin: 24px auto 28px;
+  }
+
+  .video-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .video-block video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+  }
+
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .home-wrap {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    animation: pageIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Dos columnas laterales: el centro queda libre para lucir el collage */
+  .home-cols {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4vw;
+  }
+
+  .home-col {
+    width: min(100%, 440px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-col--right { align-items: flex-end; text-align: right; }
+
+  @media (max-width: 900px) {
+    .home-cols { flex-direction: column; gap: 14px; }
+    .home-col { width: 100%; }
+    .home-col--right { align-items: flex-start; text-align: left; }
+  }
+
+  .home-logo {
+    display: block;
+    width: clamp(120px, 15vw, 185px);
+    height: auto;
+    margin: 0 auto 6vh;
+    filter: drop-shadow(0 6px 24px rgba(0,0,0,0.45));
+  }
+
+  .home-kicker {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.8);
+  }
+
+  .home-sub {
+    font-family: 'Oxygen', sans-serif;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.4);
+  }
+
+  .home-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 32px;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.8);
+  }
+
+  .home-meta em { color: var(--gold); font-style: normal; }
+
+  /* Menú: enlaces grandes, apretados y modernos en columnas laterales */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .home-col--right .menu { align-items: flex-end; }
+
+  .menu-num {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    color: var(--gold);
+    vertical-align: super;
+    margin-right: 10px;
+  }
+
+  .menu-link {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
+    padding: 11px 0;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.85), 0 0 36px rgba(0,0,0,0.45);
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .menu-link:hover,
+  .menu-link:focus-visible { color: var(--gold); }
+
+  .home-col--left .menu-link:hover { transform: translateX(6px); }
+  .home-col--right .menu-link:hover { transform: translateX(-6px); }
+
+  .menu-link small {
+    display: block;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-top: 3px;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.8);
+  }
+
+  /* Botón acción / descarga */
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(217,185,138,0.12);
+    border: 1px solid rgba(217,185,138,0.5);
+    border-radius: 50px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding: 13px 26px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .action:hover {
+    background: rgba(217,185,138,0.24);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .action .ico { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .card { padding: 26px 20px; }
+    .menu-link { font-size: 1.3rem; letter-spacing: -0.01em; }
+    .milestone { flex-direction: column; gap: 4px; }
+    .milestone .road { min-width: 0; }
+  }
+  /* ══ Impresión: dossier vertical B/N (Ctrl+P → Guardar como PDF) ══ */
+  @media print {
+    * { color: #000 !important; text-shadow: none !important; box-shadow: none !important; animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+    body { background: #fff !important; overflow: visible; }
+    body::before { display: none !important; }
+
+    .page { display: block !important; min-height: auto; padding: 0; }
+    .page:not(:last-of-type) { page-break-after: always; break-after: page; }
+
+    .card { background: #fff !important; backdrop-filter: none; -webkit-backdrop-filter: none; min-height: auto; padding: 0; }
+    .card > * { max-width: 100%; }
+
+    .page-header { border-bottom: 1px solid #000; }
+    .page-header img, .home-logo, .back-btn, .video-block, .actions, .photo-grid { display: none !important; }
+
+    .home-kicker, .home-sub, .eyebrow, .video-caption, .page-title, .lead, .milestone .road, .menu-link { color: #000 !important; }
+    .home-cols { display: block; }
+    .home-col { width: 100%; }
+    .home-col--right { text-align: left; }
+    .menu { max-width: 100%; }
+    .menu-link small { color: #444 !important; }
+
+    .bio-block {
+      border-top: 2px solid #000 !important;
+      break-inside: avoid;
+    }
+    #bio-larga p.body:first-of-type, .bio-lead { font-size: 1.2rem; color: #000 !important; }
+    .hovercard { color: #000 !important; border-bottom: none; }
+    .hovercard-pop { display: none !important; }
+    .rider { border-top: 2px solid #000 !important; }
+    .rider-head { border-bottom: 1px solid #000 !important; }
+    .rider-row { border-bottom: 1px solid #ccc !important; break-inside: avoid; }
+    .rider-row dt { color: #000 !important; }
+    .rider-row dd li::before { color: #555 !important; }
+    .rider-row dd li, p.body, .mini-meta span, .milestone .desc, .word-count { color: #222 !important; }
+    p.body strong { color: #000 !important; }
+    .lead { border-left: 3px solid #000; }
+
+    .rider-row a { color: #000 !important; text-decoration: underline; }
+    .rider-row a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.68rem; color: #555 !important; word-break: break-all; }
+
+    .milestone { border-bottom: 1px solid #ccc; break-inside: avoid; }
+    .passport-figure { border: 1px solid #bbb; }
+    .passport-figure img { filter: grayscale(100%); }
+
+    @page { margin: 14mm; }
+  }
+</style>
+</head>
+<body>
+<!-- ════════ PORTADA ════════ -->
+  <section class="page" id="page-home">
+    <div class="home-wrap">
+      <img src="imgs/MM_logo_white%20(1).png" alt="Marga Mbande" class="home-logo">
+      <div class="home-cols">
+        <div class="home-col home-col--left">
+          <div class="home-kicker">Press Kit &amp; Dossier Digital</div>
+          <h1 class="home-sub">Marga Mbande no se explica con cifras; se recorre como un mapa.</h1>
+          <div class="home-meta">Afrofusión · Blues — Proyecto activo: <em>IGOMÁ</em> (2027)</div>
+          <nav class="menu">
+            <a class="menu-link" href="#datos"><span class="menu-num">01</span>Datos &amp; Contacto<small>Booking · prensa · redes</small></a>
+            <a class="menu-link" href="#biografia"><span class="menu-num">02</span>Sobre ella<small>Carrera · proyectos · IGOMÁ</small></a>
+          </nav>
+        </div>
+        <div class="home-col home-col--right">
+          <nav class="menu">
+            <a class="menu-link" href="#pasaporte"><span class="menu-num">03</span>Pasaporte de Travesías<small>Hitos 2003 → 2027</small></a>
+            <a class="menu-link" href="#directo"><span class="menu-num">04</span>En vivo<small>Conciertos · “Nalandi” · televisión</small></a>
+            <a class="menu-link" href="#rider"><span class="menu-num">05</span>Rider Técnico<small>Cuarteto · hospitalidad · descarga PDF</small></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 01 · DATOS & CONTACTO ════════ -->
+  <section class="page" id="page-datos">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">01</span>Datos &amp; Contacto</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+      <dl class="rider">
+        <div class="rider-head" aria-hidden="true">
+          <span>Campo</span>
+          <span>Detalle</span>
+        </div>
+        <div class="rider-row">
+          <dt>Artista</dt>
+          <dd><ul><li>Marga Mbande.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Proyecto Activo</dt>
+          <dd><ul><li>IGOMÁ (Álbum 2027) · Single adelanto: “Nalandi”.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Estilo</dt>
+          <dd><ul><li>R&amp;B Contemporáneo, Soul, Afro-fusion, Afro-jazz.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Ubicación / Base</dt>
+          <dd><ul><li>España.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Booking / Prensa</dt>
+          <dd><ul>
+            <li>Luís Gibert · <a href="tel:+34629828479">629 82 84 79</a></li>
+          </ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Redes &amp; Web</dt>
+          <dd><ul>
+            <li><a href="https://www.instagram.com/margambande/" target="_blank" rel="noopener">@margambande</a></li>
+          </ul></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ════════ 02 · BIOGRAFÍA OFICIAL ════════ -->
+  <section class="page" id="page-biografia">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">02</span>Sobre ella</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+
+      <div class="bio-block">
+        <div id="bio-larga">
+        <p class="body bio-lead">Marga Mbande no se explica con cifras; se recorre como un mapa.</p>
+        <p class="body">Nacida en Barcelona, de raíces ndowe (kombe) de Guinea Ecuatorial, se define como «africana nacida en España» y canta en inglés, castellano, catalán y kombe. Su ruta arranca en 2003 como cofundadora de <span class="hovercard" tabindex="0">Dlux<span class="hovercard-pop"><img src="imgs/Dlux.jpg" alt="Dlux" onerror="this.style.display='none'"><small>Dlux · pioneras del R&amp;B en español · 3 discos</small></span></span>, pioneras en introducir los códigos del R&amp;B en la escena española: tres discos, colaboraciones con Nach, El Chojin y Arianna Puello y telonerías a Method Man y Afrika Bambaataa. Desde entonces ha construido su carrera sobre la carretera, el directo y la resistencia cultural. Ha sido corista de Mónica Green y residente de las Noches Mágicas de la Casa Batlló, y ha compartido cartel con leyendas como Jimmy Cliff y Doreen Shaffer, de The Skatalites, en el Rototom Sunsplash, que la contó como artista y maestra de ceremonias durante tres ediciones consecutivas (2017–2019).</p>
+        <p class="body">Su <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> no se queda en casa. Como <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> principal de Alma Afrobeat Ensemble recorrió el Medio Oeste de <span class="hovercard hovercard--link" tabindex="0">Estados Unidos<span class="hovercard-pop"><strong>Prensa · Chicago Reader</strong><small>“Barcelona’s Alma Afrobeat Ensemble keep the spirit of afrobeat going strong”</small><a href="https://chicagoreader.com/chicago/barcelonas-alma-afrobeat-ensemble-keep-the-spirit-of-afrobeat-going-strong/Content?oid=71791613" target="_blank" rel="noopener">Leer artículo ↗</a></span></span> en 2018 y 2019: 25 conciertos en dos giras. Ha llevado su directo de Canarias a Oslo, París, Suiza, Andorra y Armenia, y ha pisado escenarios tan distintos como el Akron Civic Theatre, The Cedar o Martyrs' en Estados Unidos, y en Barcelona la Sala Apolo, Razzmatazz, el Poble Espanyol, el Jamboree, Luz de Gas, Tarantos, el Castell de Montjuïc, CosmoCaixa, el CCCB o el Liceu.</p>
+        <p class="body">En solitario ha firmado <span class="hovercard" tabindex="0">MBANDE SOUND<span class="hovercard-pop"><img src="imgs/mbandeSound.jpg" alt="Portada de MBANDE SOUND (2017)"><small>MBANDE SOUND · 2017</small></span></span> (2017) y <span class="hovercard" tabindex="0">AFROMANTIK<span class="hovercard-pop"><img src="imgs/afromantik.jpg" alt="Portada de AFROMANTIK (2021)"><small>AFROMANTIK · 2021</small></span></span> (2021), y ha colaborado con artistas como Bocafloja. Ha pasado por el prime time de <span class="hovercard hovercard--link" tabindex="0">La Voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande en La Voz" onerror="this.style.display='none'"><strong>La Voz · Antena 3</strong><small>Marga Mbande en el prime time · Equipo Malú</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Ver vídeo ▶</a></span></span> (Antena 3, Equipo Malú), por La 2 de la mano de Macaco y por el cine, como una de las cuatro protagonistas del documental <span class="hovercard" tabindex="0">37 Grados<span class="hovercard-pop"><img src="imgs/37grados.jpg" alt="37 Grados, documental (Filmin)" onerror="this.style.display='none'"><small>37 Grados · documental · Filmin</small></span></span> (Filmin). Fuera del escenario impulsó las Cypha Sessions y fundó Afrolab Basement, jams con banda en directo de afrobeats, hip-hop y amapiano que hoy son punto de encuentro de la cultura afro y urbana de Barcelona.</p>
+        <p class="body">En 2027 presenta IGOMÁ, una obra de conservación y rescate de la lengua bapuku. Concebido como el hallazgo de una carta perdida en 1968 entre Guinea Ecuatorial y España, el proyecto transforma la memoria olvidada en baile, fuerza y canto. Un espectáculo de impacto inmediato donde su <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> pasa de la rotundidad más potente a la seda más íntima.</p>
+        </div>
+        <button class="copy-btn" type="button" onclick="copyBio('bio-larga', this)">Copiar</button>
+      </div>
+    </div>
+  </section>
+<!-- ════════ 03 · PASAPORTE DE TRAVESÍAS ════════ -->
+  <section class="page" id="page-pasaporte">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">03</span>Pasaporte de Travesías</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+
+      <figure class="passport-figure">
+        <img src="imgs/Pasaporte_artistico.png" alt="Pasaporte artístico de Marga Mbande" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ 04 · EL DIRECTO & NALANDI ════════ -->
+  <section class="page" id="page-directo">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">04</span>Directo · “Nalandi”</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+
+      <p class="lead">El show de Marga Mbande es un ritual magnético.</p>
+
+      <div class="video-block">
+        <p class="video-caption">Adelanto Gira 2027</p>
+        <video src="imgs/igoma_teaser_rosazul_720.mp4" controls playsinline preload="metadata"></video>
+      </div>
+
+      <div class="video-block">
+        <p class="video-caption">Afrika for me · Live</p>
+        <video src="imgs/afrika_for_me_live.mp4" controls playsinline preload="metadata" onerror="this.closest('.video-block').style.display='none'"></video>
+      </div>
+
+      <div class="video-block">
+        <p class="video-caption">Makelenge · Live en Sofar Barcelona</p>
+        <div class="video-embed">
+          <iframe src="https://www.youtube-nocookie.com/embed/w5AXB3hKUWM" title="Marga Mbande — Makelenge en vivo (Sofar Barcelona)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <p class="body">Su voz viaja sin esfuerzo de la potencia rotunda a la suavidad de la seda, conectando con el público desde el primer compás. Sobre el escenario se presenta en formación de cuarteto orgánico con un pulso rítmico volcado en el afro-fusion y el afro-jazz.</p>
+    </div>
+  </section>
+<!-- ════════ 05 · RIDER TÉCNICO COMPACTO ════════ -->
+  <section class="page" id="page-rider">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">05</span>Rider Técnico</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+
+      <dl class="rider">
+        <div class="rider-head" aria-hidden="true">
+          <span>Apartado</span>
+          <span>Especificaciones</span>
+        </div>
+        <div class="rider-row">
+          <dt>Formación</dt>
+          <dd><ul><li>Cuarteto: Voz Principal, Guitarra, Bajo, Batería Afro-Jazz.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Voz</dt>
+          <dd><ul>
+            <li>Micrófono inalámbrico de gama alta (Shure QLXD / Beta 58A o similar).</li>
+            <li>Procesador de efectos (reverb/delay sutiles).</li>
+            <li>Monitoreo profesional (cuña de alta potencia o In-Ear).</li>
+          </ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Backline Cuerdas</dt>
+          <dd><ul>
+            <li>Amplificador de guitarra a válvulas (Fender Hot Rod Deluxe, Vox AC30).</li>
+            <li>Cabezal de bajo de alta potencia (Ampeg, Aguilar) con cajas DI profesionales.</li>
+          </ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Batería</dt>
+          <dd><ul><li>Kit acústico de 4 piezas (Bombo, Tom de suelo, Tom aéreo, Caja) afinado para matices afro-jazz/fusion, set completo de platos y microfonía.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Visuales</dt>
+          <dd><ul><li>Proyector de alta luminosidad y pantalla/ciclorama en fondo de escenario con conexión HDMI/SDI.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Escenario</dt>
+          <dd><ul><li>10 botellas de agua mineral repartidas y accesibles.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Material gráfico</dt>
+          <dd>
+            <p class="body" style="margin-bottom:10px;">Marga Mbande no se explica con cifras; se recorre como un mapa. Cantante y compositora nacida en Barcelona, con raíces ndowe, pionera del R&amp;B en español con Dlux, voz de Alma Afrobeat Ensemble en Estados Unidos y del Rototom Sunsplash, protagonista de 37 Grados y de La Voz. En 2027 presenta IGOMÁ, un espectáculo para rescatar la lengua bapuku.</p>
+            <p class="word-count" style="margin-bottom:6px;">1 retrato y 4 imágenes de escenario en alta resolución. Click en “Descargar” para guardar el original.</p>
+            <div class="photo-grid">
+              <figure class="photo-item">
+                <img src="imgs/thumb_retrato.jpg" alt="Retrato de Marga Mbande" loading="lazy">
+                <figcaption>Retrato · vertical · 3353×5125</figcaption>
+                <a class="photo-dl" href="imgs/Marga-Mbande.jpg" download="MargaMbande_retrato.jpg">⬇ Descargar</a>
+              </figure>
+              <figure class="photo-item">
+                <img src="imgs/thumb_limelight.jpg" alt="Marga Mbande en el escenario, Limelight" loading="lazy">
+                <figcaption>Escenario · Limelight · 3970×5948</figcaption>
+                <a class="photo-dl" href="imgs/marga_mbande_limelight.jpg" download="MargaMbande_limelight.jpg">⬇ Descargar</a>
+              </figure>
+              <figure class="photo-item">
+                <img src="imgs/thumb_live.jpg" alt="Marga Mbande en directo" loading="lazy">
+                <figcaption>Escenario · directo · 1080×1080</figcaption>
+                <a class="photo-dl" href="imgs/Marga_Mbande_Live.jpg" download="MargaMbande_directo.jpg">⬇ Descargar</a>
+              </figure>
+              <figure class="photo-item">
+                <img src="imgs/thumb_gira_eeuu.jpg" alt="Marga Mbande, gira por EE. UU." loading="lazy">
+                <figcaption>Escenario · gira EE. UU. · 720×900</figcaption>
+                <a class="photo-dl" href="imgs/Marga_Mbande_eeuu_gira.jpg" download="MargaMbande_gira_eeuu.jpg">⬇ Descargar</a>
+              </figure>
+              <figure class="photo-item">
+                <img src="imgs/thumb_solo_acustic.jpg" alt="Marga Mbande, solo acústico" loading="lazy">
+                <figcaption>Escenario · solo acústico · 720×480</figcaption>
+                <a class="photo-dl" href="imgs/Marga_Mbande_Solo_Acustic.jpg" download="MargaMbande_solo_acustico.jpg">⬇ Descargar</a>
+              </figure>
+            </div>
+          </dd>
+        </div>
+        <div class="rider-row">
+          <dt>Hospitalidad · Camerino (4 personas)</dt>
+          <dd><ul>
+            <li>Camerino privado, bien iluminado, con espejo de cuerpo entero y perchero para vestuario.</li>
+            <li>Cuidado vocal: 1 tarro de miel pura natural + servicio de agua caliente e infusiones.</li>
+            <li>Fruta fresca de temporada (plátanos, manzanas, uvas o frutos rojos).</li>
+            <li>Snacks: patatas artesanas / gourmet y frutos secos variados.</li>
+            <li>Surtido de agua mineral complementario.</li>
+            <li>4 toallas limpias para uso post-show.</li>
+          </ul></dd>
+        </div>
+      </dl>
+
+      <p class="body"><strong>Nota de sostenibilidad:</strong> este dossier está maquetado en formato vertical y optimizado en blanco y negro estricto para minimizar el consumo de tinta y tóner en impresiones de producción o salas.</p>
+      <p class="eyebrow">Descarga / Impresión</p>
+      <div class="actions">
+        <button class="action" type="button" onclick="window.print()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (B/N vertical)</button>
+        <a class="action" href="TU_ENLACE_PDF_BN" target="_blank" rel="noopener"><span class="ico">⬇</span>Descargar Dossier &amp; Rider en PDF (B/N vertical eco-friendly)</a>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    const pages = document.querySelectorAll('.page');
+
+    function render(id) {
+      pages.forEach(p => p.classList.remove('active'));
+      if (id === 'home' || !document.getElementById('page-' + id)) {
+        document.body.classList.remove('dimmed');
+        document.getElementById('page-home').classList.add('active');
+      } else {
+        document.body.classList.add('dimmed');
+        document.getElementById('page-' + id).classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function go(id) {
+      window.location.hash = id === 'home' ? '' : id;
+    }
+
+    function onHash() {
+      const h = window.location.hash.replace('#', '');
+      render(h || 'home');
+    }
+
+    window.addEventListener('hashchange', onHash);
+    onHash();
+
+    function copyBio(id, btn) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const label = btn.textContent;
+      const done = () => { btn.textContent = '✓ Copiado'; setTimeout(() => { btn.textContent = label; }, 2000); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(el.innerText).then(done);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = el.innerText;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        ta.remove();
+      }
+    }
+  </script>
+</body>
+</html>
