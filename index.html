@@ -497,6 +497,29 @@
 
   .photo-dl:hover { border-bottom-color: var(--gold); }
 
+  /* Plano de escenario (SVG, imprime en B/N) */
+  .stageplot { margin: 4px 0 2px; color: var(--ink); }
+
+  .stageplot svg {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .stageplot figcaption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    line-height: 1.6;
+    text-align: center;
+    margin-top: 8px;
+  }
+
   @media (max-width: 600px) {
     .rider-head { display: none; }
     .rider-row { grid-template-columns: 1fr; gap: 3px 0; padding: 9px 0; }
@@ -561,9 +584,10 @@
   }
 
   .home-col {
-    width: min(100%, 440px);
+    width: min(100%, 460px);
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .home-col--right { align-items: flex-end; text-align: right; }
@@ -594,12 +618,13 @@
   }
 
   .home-sub {
-    font-family: 'Oxygen', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: var(--ink);
-    font-size: 1.05rem;
-    font-weight: 700;
-    line-height: 1.55;
-    margin-bottom: 12px;
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    margin-bottom: 14px;
     text-shadow: 0 2px 18px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.4);
   }
 
@@ -643,7 +668,7 @@
     text-decoration: none;
     text-transform: uppercase;
     font-size: clamp(1.35rem, 2.6vw, 1.85rem);
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: -0.015em;
     line-height: 1.06;
     padding: 11px 0;
@@ -659,13 +684,13 @@
 
   .menu-link small {
     display: block;
-    font-family: 'Oxygen', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
     letter-spacing: 1.6px;
     text-transform: uppercase;
     color: var(--ink-dim);
-    margin-top: 3px;
+    margin-top: 5px;
     text-shadow: 0 1px 10px rgba(0,0,0,0.8);
   }
 
@@ -705,21 +730,22 @@
     .milestone { flex-direction: column; gap: 4px; }
     .milestone .road { min-width: 0; }
   }
-  /* ══ Impresión: dossier vertical B/N (Ctrl+P → Guardar como PDF) ══ */
+  /* ══ Impresión: SOLO el Rider Técnico, vertical B/N (Ctrl+P → Guardar como PDF) ══ */
   @media print {
     * { color: #000 !important; text-shadow: none !important; box-shadow: none !important; animation: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
     body { background: #fff !important; overflow: visible; }
     body::before { display: none !important; }
 
-    .page { display: block !important; min-height: auto; padding: 0; }
-    .page:not(:last-of-type) { page-break-after: always; break-after: page; }
+    /* Solo se imprime la página del rider; el resto del presskit queda fuera */
+    .page { display: none !important; }
+    #page-rider { display: block !important; min-height: auto; padding: 0; }
 
     .card { background: #fff !important; backdrop-filter: none; -webkit-backdrop-filter: none; min-height: auto; padding: 0; }
     .card > * { max-width: 100%; }
 
     .page-header { border-bottom: 1px solid #000; }
-    .page-header img, .home-logo, .back-btn, .video-block, .actions, .photo-grid { display: none !important; }
+    .page-header img, .home-logo, .back-btn, .video-block, .video-embed, .actions, .copy-btn { display: none !important; }
 
     .home-kicker, .home-sub, .eyebrow, .video-caption, .page-title, .lead, .milestone .road, .menu-link { color: #000 !important; }
     .home-cols { display: block; }
@@ -730,7 +756,6 @@
 
     .bio-block {
       border-top: 2px solid #000 !important;
-      break-inside: avoid;
     }
     #bio-larga p.body:first-of-type, .bio-lead { font-size: 1.2rem; color: #000 !important; }
     .hovercard { color: #000 !important; border-bottom: none; }
@@ -751,6 +776,14 @@
     .passport-figure { border: 1px solid #bbb; }
     .passport-figure img { filter: grayscale(100%); }
 
+    /* Fotos de prensa: fuera del PDF — se descargan una a una desde la web */
+    .rider-row--fotos { display: none !important; }
+
+    /* Plano de escenario en impresión */
+    .stageplot { break-inside: avoid; color: #000 !important; }
+    .stageplot svg { max-width: 100%; }
+    .stageplot figcaption { color: #222 !important; }
+
     @page { margin: 14mm; }
   }
 </style>
@@ -764,7 +797,7 @@
         <div class="home-col home-col--left">
           <div class="home-kicker">Press Kit &amp; Dossier Digital</div>
           <h1 class="home-sub">Marga Mbande no se explica con cifras; se recorre como un mapa.</h1>
-          <div class="home-meta">Afrofusión · Blues — Proyecto activo: <em>IGOMÁ</em> (2027)</div>
+          <div class="home-meta">Proyecto activo: <em>IGOMÁ</em> (2027)</div>
           <nav class="menu">
             <a class="menu-link" href="#datos"><span class="menu-num">01</span>Datos &amp; Contacto<small>Booking · prensa · redes</small></a>
             <a class="menu-link" href="#biografia"><span class="menu-num">02</span>Sobre ella<small>Carrera · proyectos · IGOMÁ</small></a>
@@ -773,7 +806,7 @@
         <div class="home-col home-col--right">
           <nav class="menu">
             <a class="menu-link" href="#pasaporte"><span class="menu-num">03</span>Pasaporte de Travesías<small>Hitos 2003 → 2027</small></a>
-            <a class="menu-link" href="#directo"><span class="menu-num">04</span>En vivo<small>Conciertos · “Nalandi” · televisión</small></a>
+            <a class="menu-link" href="#directo"><span class="menu-num">04</span>En vivo<small>Conciertos · televisión · cine</small></a>
             <a class="menu-link" href="#rider"><span class="menu-num">05</span>Rider Técnico<small>Cuarteto · hospitalidad · descarga PDF</small></a>
           </nav>
         </div>
@@ -804,7 +837,7 @@
         </div>
         <div class="rider-row">
           <dt>Estilo</dt>
-          <dd><ul><li>R&amp;B Contemporáneo, Soul, Afro-fusion, Afro-jazz.</li></ul></dd>
+          <dd><ul><li>R&amp;B.</li></ul></dd>
         </div>
         <div class="rider-row">
           <dt>Ubicación / Base</dt>
@@ -814,6 +847,7 @@
           <dt>Booking / Prensa</dt>
           <dd><ul>
             <li>Luís Gibert · <a href="tel:+34629828479">629 82 84 79</a></li>
+            <li><a href="mailto:info@gramophonerecords.es">info@gramophonerecords.es</a></li>
           </ul></dd>
         </div>
         <div class="rider-row">
@@ -862,12 +896,12 @@
     </div>
   </section>
 
-  <!-- ════════ 04 · EL DIRECTO & NALANDI ════════ -->
+  <!-- ════════ 04 · EL DIRECTO ════════ -->
   <section class="page" id="page-directo">
     <div class="card">
       <div class="page-header">
         <img src="imgs/MM_logo_white%20(1).png" alt="">
-        <h2 class="page-title"><span class="page-num">04</span>Directo · “Nalandi”</h2>
+        <h2 class="page-title"><span class="page-num">04</span>Directo</h2>
         <button class="back-btn" onclick="go('home')">← Volver</button>
       </div>
 
@@ -880,7 +914,9 @@
 
       <div class="video-block">
         <p class="video-caption">Afrika for me · Live</p>
-        <video src="imgs/afrika_for_me_live.mp4" controls playsinline preload="metadata" onerror="this.closest('.video-block').style.display='none'"></video>
+        <div class="video-embed">
+          <iframe src="https://www.youtube-nocookie.com/embed/569pcfmpjTQ?start=6" title="Marga Mbande — Afrika for me (en vivo)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="video-block">
@@ -890,7 +926,7 @@
         </div>
       </div>
 
-      <p class="body">Su voz viaja sin esfuerzo de la potencia rotunda a la suavidad de la seda, conectando con el público desde el primer compás. Sobre el escenario se presenta en formación de cuarteto orgánico con un pulso rítmico volcado en el afro-fusion y el afro-jazz.</p>
+      <p class="body">Su voz viaja sin esfuerzo de la potencia rotunda a la suavidad de la seda, conectando con el público desde el primer compás. Sobre el escenario se presenta en formación de cuarteto orgánico.</p>
     </div>
   </section>
 <!-- ════════ 05 · RIDER TÉCNICO COMPACTO ════════ -->
@@ -909,14 +945,21 @@
         </div>
         <div class="rider-row">
           <dt>Formación</dt>
-          <dd><ul><li>Cuarteto: Voz Principal, Guitarra, Bajo, Batería Afro-Jazz.</li></ul></dd>
+          <dd><ul><li>Cuarteto: Voz Principal, Guitarra, Bajo, Batería.</li></ul></dd>
+        </div>
+        <div class="rider-row">
+          <dt>Monitores</dt>
+          <dd><ul>
+            <li>Monitoreo para los 4 músicos (mínimo 4 mixes independientes).</li>
+            <li>Cuñas de alta potencia o sistema In-Ear, a elección de cada músico.</li>
+          </ul></dd>
         </div>
         <div class="rider-row">
           <dt>Voz</dt>
           <dd><ul>
             <li>Micrófono inalámbrico de gama alta (Shure QLXD / Beta 58A o similar).</li>
             <li>Procesador de efectos (reverb/delay sutiles).</li>
-            <li>Monitoreo profesional (cuña de alta potencia o In-Ear).</li>
+            <li>2 micrófonos vocales adicionales con pie para coros (guitarra y batería).</li>
           </ul></dd>
         </div>
         <div class="rider-row">
@@ -928,7 +971,7 @@
         </div>
         <div class="rider-row">
           <dt>Batería</dt>
-          <dd><ul><li>Kit acústico de 4 piezas (Bombo, Tom de suelo, Tom aéreo, Caja) afinado para matices afro-jazz/fusion, set completo de platos y microfonía.</li></ul></dd>
+          <dd><ul><li>Kit acústico de 4 piezas (Bombo, Tom de suelo, Tom aéreo, Caja), set completo de platos y microfonía.</li></ul></dd>
         </div>
         <div class="rider-row">
           <dt>Visuales</dt>
@@ -936,38 +979,81 @@
         </div>
         <div class="rider-row">
           <dt>Escenario</dt>
-          <dd><ul><li>10 botellas de agua mineral repartidas y accesibles.</li></ul></dd>
+          <dd><ul>
+            <li>Dimensiones mínimas: 6 m (ancho) × 4 m (fondo), para la comodidad de los 4 músicos y el backline.</li>
+            <li>10 botellas de agua mineral repartidas y accesibles.</li>
+          </ul></dd>
         </div>
         <div class="rider-row">
+          <dt>Plano de escenario</dt>
+          <dd>
+            <figure class="stageplot">                <svg viewBox="0 0 600 420" role="img" aria-label="Plano de escenario: proyección al fondo, batería al centro con pie de micro arriba, bajo a la izquierda y guitarra a la derecha a la misma altura con pie de micro encima de la guitarra, y voz principal al frente debajo de la batería, unida por línea discontinua">
+                <rect x="40" y="22" width="520" height="46" rx="10" fill="rgba(255,255,255,0.04)" stroke="currentColor" stroke-dasharray="7 5" stroke-width="1.5"/>
+                <text x="300" y="50" text-anchor="middle" font-size="14" letter-spacing="3">PROYECCIÓN / CICLORAMA · FONDO</text>
+
+                <rect x="60" y="150" width="130" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
+                <text x="125" y="188" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">BAJO</text>
+                <rect x="93" y="202" width="64" height="30" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <text x="125" y="222" text-anchor="middle" font-size="11" letter-spacing="1">AMPLI</text>
+
+                <rect x="235" y="145" width="130" height="105" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
+                <text x="300" y="170" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">BATERÍA</text>
+                <circle cx="273" cy="198" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="327" cy="198" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="300" cy="228" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <line x1="300" y1="145" x2="300" y2="120" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="300" cy="113" r="5" fill="currentColor"/>
+
+                <rect x="410" y="150" width="130" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
+                <text x="475" y="188" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">GUITARRA</text>
+                <rect x="443" y="202" width="64" height="30" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <text x="475" y="222" text-anchor="middle" font-size="11" letter-spacing="1">AMPLI</text>
+                <line x1="500" y1="150" x2="500" y2="125" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="500" cy="118" r="5" fill="currentColor"/>
+
+                <line x1="300" y1="250" x2="300" y2="282" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.7"/>
+                <circle cx="300" cy="287" r="5" fill="currentColor"/>
+                <circle cx="300" cy="322" r="25" fill="rgba(255,255,255,0.07)" stroke="currentColor" stroke-width="1.5"/>
+                <text x="300" y="328" text-anchor="middle" font-size="13" font-weight="bold" letter-spacing="1">VOZ</text>
+                <text x="300" y="368" text-anchor="middle" font-size="11" letter-spacing="2">VOZ PRAL</text>
+
+                <line x1="20" y1="388" x2="580" y2="388" stroke="currentColor" stroke-width="2"/>
+                <text x="300" y="408" text-anchor="middle" font-size="12" letter-spacing="4">PÚBLICO</text>
+              </svg>
+              <figcaption>Disposición: proyección al fondo · batería al centro, con bajo y guitarra a la misma altura flanqueando · voz pral al frente, debajo de la batería · ◉ = pie de micro (batería, guitarra y voz pral)</figcaption>
+            </figure>
+          </dd>
+        </div>
+        <div class="rider-row rider-row--fotos">
           <dt>Material gráfico</dt>
           <dd>
             <p class="body" style="margin-bottom:10px;">Marga Mbande no se explica con cifras; se recorre como un mapa. Cantante y compositora nacida en Barcelona, con raíces ndowe, pionera del R&amp;B en español con Dlux, voz de Alma Afrobeat Ensemble en Estados Unidos y del Rototom Sunsplash, protagonista de 37 Grados y de La Voz. En 2027 presenta IGOMÁ, un espectáculo para rescatar la lengua bapuku.</p>
-            <p class="word-count" style="margin-bottom:6px;">1 retrato y 4 imágenes de escenario en alta resolución. Click en “Descargar” para guardar el original.</p>
+            <p class="word-count" style="margin-bottom:6px;">1 retrato y 4 imágenes de escenario en máxima resolución original. Click en “Descargar” para guardar cada archivo individualmente.</p>
             <div class="photo-grid">
               <figure class="photo-item">
                 <img src="imgs/thumb_retrato.jpg" alt="Retrato de Marga Mbande" loading="lazy">
                 <figcaption>Retrato · vertical · 3353×5125</figcaption>
-                <a class="photo-dl" href="imgs/Marga-Mbande.jpg" download="MargaMbande_retrato.jpg">⬇ Descargar</a>
+                <a class="photo-dl" href="imgs/Marga-Mbande.jpg" download="MargaMbande_retrato.jpg" onclick="downloadPhoto('imgs/Marga-Mbande.jpg','MargaMbande_retrato.jpg'); return false;">⬇ Descargar original</a>
               </figure>
               <figure class="photo-item">
                 <img src="imgs/thumb_limelight.jpg" alt="Marga Mbande en el escenario, Limelight" loading="lazy">
                 <figcaption>Escenario · Limelight · 3970×5948</figcaption>
-                <a class="photo-dl" href="imgs/marga_mbande_limelight.jpg" download="MargaMbande_limelight.jpg">⬇ Descargar</a>
+                <a class="photo-dl" href="imgs/marga_mbande_limelight.jpg" download="MargaMbande_limelight.jpg" onclick="downloadPhoto('imgs/marga_mbande_limelight.jpg','MargaMbande_limelight.jpg'); return false;">⬇ Descargar original</a>
               </figure>
               <figure class="photo-item">
                 <img src="imgs/thumb_live.jpg" alt="Marga Mbande en directo" loading="lazy">
                 <figcaption>Escenario · directo · 1080×1080</figcaption>
-                <a class="photo-dl" href="imgs/Marga_Mbande_Live.jpg" download="MargaMbande_directo.jpg">⬇ Descargar</a>
+                <a class="photo-dl" href="imgs/Marga_Mbande_Live.jpg" download="MargaMbande_directo.jpg" onclick="downloadPhoto('imgs/Marga_Mbande_Live.jpg','MargaMbande_directo.jpg'); return false;">⬇ Descargar original</a>
               </figure>
               <figure class="photo-item">
                 <img src="imgs/thumb_gira_eeuu.jpg" alt="Marga Mbande, gira por EE. UU." loading="lazy">
                 <figcaption>Escenario · gira EE. UU. · 720×900</figcaption>
-                <a class="photo-dl" href="imgs/Marga_Mbande_eeuu_gira.jpg" download="MargaMbande_gira_eeuu.jpg">⬇ Descargar</a>
+                <a class="photo-dl" href="imgs/Marga_Mbande_eeuu_gira.jpg" download="MargaMbande_gira_eeuu.jpg" onclick="downloadPhoto('imgs/Marga_Mbande_eeuu_gira.jpg','MargaMbande_gira_eeuu.jpg'); return false;">⬇ Descargar original</a>
               </figure>
               <figure class="photo-item">
                 <img src="imgs/thumb_solo_acustic.jpg" alt="Marga Mbande, solo acústico" loading="lazy">
                 <figcaption>Escenario · solo acústico · 720×480</figcaption>
-                <a class="photo-dl" href="imgs/Marga_Mbande_Solo_Acustic.jpg" download="MargaMbande_solo_acustico.jpg">⬇ Descargar</a>
+                <a class="photo-dl" href="imgs/Marga_Mbande_Solo_Acustic.jpg" download="MargaMbande_solo_acustico.jpg" onclick="downloadPhoto('imgs/Marga_Mbande_Solo_Acustic.jpg','MargaMbande_solo_acustico.jpg'); return false;">⬇ Descargar original</a>
               </figure>
             </div>
           </dd>
@@ -988,8 +1074,7 @@
       <p class="body"><strong>Nota de sostenibilidad:</strong> este dossier está maquetado en formato vertical y optimizado en blanco y negro estricto para minimizar el consumo de tinta y tóner en impresiones de producción o salas.</p>
       <p class="eyebrow">Descarga / Impresión</p>
       <div class="actions">
-        <button class="action" type="button" onclick="window.print()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (B/N vertical)</button>
-        <a class="action" href="TU_ENLACE_PDF_BN" target="_blank" rel="noopener"><span class="ico">⬇</span>Descargar Dossier &amp; Rider en PDF (B/N vertical eco-friendly)</a>
+        <button class="action" type="button" onclick="window.print()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (solo rider · B/N)</button>
       </div>
     </div>
   </section>
@@ -1021,6 +1106,33 @@
 
     window.addEventListener('hashchange', onHash);
     onHash();
+
+    // Descarga individual en máxima calidad: trae el original como blob y fuerza el guardado
+    function downloadPhoto(src, filename) {
+      fetch(src)
+        .then(res => { if (!res.ok) throw new Error(res.status); return res.blob(); })
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+        })
+        .catch(() => {
+          // Fallback: navegación directa al original
+          const a = document.createElement('a');
+          a.href = src;
+          a.download = filename;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        });
+    }
 
     function copyBio(id, btn) {
       const el = document.getElementById(id);
