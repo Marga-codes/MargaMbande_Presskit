@@ -511,10 +511,10 @@
 
   .photo-dl:hover { border-bottom-color: var(--gold); }
 
-  /* Plano de escenario (SVG, imprime en B/N) */
+  /* Plano de escenario (imagen) */
   .stageplot { margin: 4px 0 2px; color: var(--ink); }
 
-  .stageplot svg {
+  .stageplot img {
     display: block;
     width: 100%;
     max-width: 560px;
@@ -795,7 +795,7 @@
 
     /* Plano de escenario en impresión */
     .stageplot { break-inside: avoid; color: #000 !important; }
-    .stageplot svg { max-width: 100%; }
+    .stageplot img { max-width: 100%; filter: grayscale(100%); }
     .stageplot figcaption { color: #222 !important; }
 
     @page { margin: 14mm; }
@@ -1001,39 +1001,8 @@
         <div class="rider-row">
           <dt>Plano de escenario</dt>
           <dd>
-            <figure class="stageplot">                <svg viewBox="0 0 600 420" role="img" aria-label="Plano de escenario: proyección al fondo, batería al centro adelantada con pie de micro arriba, bajo a la izquierda adelantado, guitarra a la derecha más al fondo con pie de micro, y voz principal al frente debajo de la batería, unida por línea discontinua">
-                <rect x="40" y="22" width="520" height="46" rx="10" fill="rgba(255,255,255,0.04)" stroke="currentColor" stroke-dasharray="7 5" stroke-width="1.5"/>
-                <text x="300" y="50" text-anchor="middle" font-size="14" letter-spacing="3">PROYECCIÓN / CICLORAMA · FONDO</text>
-
-                <rect x="60" y="180" width="130" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
-                <text x="125" y="218" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">BAJO</text>
-                <rect x="93" y="232" width="64" height="30" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                <text x="125" y="252" text-anchor="middle" font-size="11" letter-spacing="1">AMPLI</text>
-
-                <rect x="235" y="175" width="130" height="105" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
-                <text x="300" y="200" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">BATERÍA</text>
-                <circle cx="273" cy="228" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                <circle cx="327" cy="228" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                <circle cx="300" cy="258" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                <line x1="300" y1="175" x2="300" y2="148" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="300" cy="141" r="5" fill="currentColor"/>
-
-                <rect x="410" y="150" width="130" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="currentColor" stroke-width="1.5"/>
-                <text x="475" y="188" text-anchor="middle" font-size="14" font-weight="bold" letter-spacing="1">GUITARRA</text>
-                <rect x="443" y="202" width="64" height="30" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                <text x="475" y="222" text-anchor="middle" font-size="11" letter-spacing="1">AMPLI</text>
-                <line x1="500" y1="150" x2="500" y2="125" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="500" cy="118" r="5" fill="currentColor"/>
-
-                <line x1="300" y1="280" x2="300" y2="300" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.7"/>
-                <circle cx="300" cy="305" r="5" fill="currentColor"/>
-                <circle cx="300" cy="340" r="25" fill="rgba(255,255,255,0.07)" stroke="currentColor" stroke-width="1.5"/>
-                <text x="300" y="346" text-anchor="middle" font-size="13" font-weight="bold" letter-spacing="1">VOZ</text>
-                <text x="300" y="380" text-anchor="middle" font-size="11" letter-spacing="2">VOZ PRAL</text>
-
-                <line x1="20" y1="388" x2="580" y2="388" stroke="currentColor" stroke-width="2"/>
-                <text x="300" y="408" text-anchor="middle" font-size="12" letter-spacing="4">PÚBLICO</text>
-              </svg>
+            <figure class="stageplot">
+                <img src="imgs/ChatGPT%20Image%2021%20sept%202026,%2019_07_11.png" alt="Plano de escenario: proyección al fondo, batería al centro adelantada con pie de micro, bajo a la izquierda adelantado, guitarra a la derecha más al fondo con pie de micro, y voz principal al frente debajo de la batería, unida por línea discontinua">
               <figcaption>Disposición: proyección al fondo · batería al centro, adelantada · bajo adelantado a la izquierda y guitarra más al fondo a la derecha · voz pral al frente, debajo de la batería · ◉ = pie de micro (batería, guitarra y voz pral)</figcaption>
             </figure>
           </dd>
