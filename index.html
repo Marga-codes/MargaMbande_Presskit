@@ -209,6 +209,15 @@
 
   .rider-row a:hover { border-bottom-color: var(--gold); }
 
+  /* Enlaces dentro de la nota de prensa */
+  #page-nota a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217,185,138,0.4);
+  }
+
+  #page-nota a:hover { border-bottom-color: var(--gold); }
+
   /* Tipografía de lectura */
   .lead {
     font-family: 'Oxygen', sans-serif;
@@ -751,9 +760,12 @@
     body { background: #fff !important; overflow: visible; }
     body::before { display: none !important; }
 
-    /* Solo se imprime la página del rider; el resto del presskit queda fuera */
+    /* Solo se imprime la página del rider; el resto del presskit queda fuera.
+       Con body.printing-nota se imprime la Nota de Prensa en su lugar. */
     .page { display: none !important; }
     #page-rider { display: block !important; min-height: auto; padding: 0; }
+    body.printing-nota #page-rider { display: none !important; }
+    body.printing-nota #page-nota { display: block !important; min-height: auto; padding: 0; }
 
     .card { background: #fff !important; backdrop-filter: none; -webkit-backdrop-filter: none; min-height: auto; padding: 0; }
     .card > * { max-width: 100%; }
@@ -786,6 +798,11 @@
     .rider-row a { color: #000 !important; text-decoration: underline; }
     .rider-row a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.68rem; color: #555 !important; word-break: break-all; }
 
+    /* Enlaces de la nota de prensa: negro subrayado, con URL visible al final.
+       El borde dorado se elimina: en B/N estricto no puede haber color. */
+    #page-nota a { color: #000 !important; text-decoration: underline; border-bottom: none !important; }
+    #page-nota a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.68rem; color: #555 !important; word-break: break-all; }
+
     .milestone { border-bottom: 1px solid #ccc; break-inside: avoid; }
     .passport-figure { border: 1px solid #bbb; }
     .passport-figure img { filter: grayscale(100%); }
@@ -793,12 +810,15 @@
     /* Fotos de prensa: fuera del PDF — se descargan una a una desde la web */
     .rider-row--fotos { display: none !important; }
 
+    /* Rótulos de acción, fuera del PDF */
+    .print-hide { display: none !important; }
+
     /* Plano de escenario en impresión */
     .stageplot { break-inside: avoid; color: #000 !important; }
     .stageplot img { max-width: 100%; filter: grayscale(100%); }
     .stageplot figcaption { color: #222 !important; }
 
-    @page { margin: 14mm; }
+    @page { size: A4 portrait; margin: 14mm; }
   }
 </style>
 </head>
@@ -822,6 +842,7 @@
             <a class="menu-link" href="#pasaporte"><span class="menu-num">03</span>Pasaporte de Travesías<small>Hitos 2003 → 2027</small></a>
             <a class="menu-link" href="#directo"><span class="menu-num">04</span>En vivo<small>Conciertos · televisión · cine</small></a>
             <a class="menu-link" href="#rider"><span class="menu-num">05</span>Rider Técnico<small>Cuarteto · hospitalidad · descarga PDF</small></a>
+            <a class="menu-link" href="#nota"><span class="menu-num">06</span>Nota de Prensa<small>IGOMÁ · dossier para medios</small></a>
           </nav>
         </div>
       </div>
@@ -887,9 +908,9 @@
         <div id="bio-larga">
         <p class="body bio-lead">Marga Mbande no se explica con cifras; se recorre como un mapa.</p>
         <p class="body">Nacida en Barcelona, de raíces ndowe (kombe) de Guinea Ecuatorial, se define como «africana nacida en España» y canta en inglés, castellano, catalán y kombe. Su ruta arranca en 2003 como cofundadora de <span class="hovercard" tabindex="0">Dlux<span class="hovercard-pop"><img src="imgs/Dlux.jpg" alt="Dlux" onerror="this.style.display='none'"><small>Dlux · pioneras del R&amp;B en español · 3 discos</small></span></span>, pioneras en introducir los códigos del R&amp;B en la escena española: tres discos, colaboraciones con Nach, El Chojin y Arianna Puello y telonerías a Method Man y Afrika Bambaataa. Desde entonces ha construido su carrera sobre la carretera, el directo y la resistencia cultural. Ha sido corista de Mónica Green y residente de las Noches Mágicas de la Casa Batlló, y ha compartido cartel con leyendas como Jimmy Cliff y Doreen Shaffer, de The Skatalites, en el Rototom Sunsplash, que la contó como artista y maestra de ceremonias durante tres ediciones consecutivas (2017–2019).</p>
-        <p class="body">Su <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> no se queda en casa. Como <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> principal de Alma Afrobeat Ensemble recorrió el Medio Oeste de <span class="hovercard hovercard--link" tabindex="0">Estados Unidos<span class="hovercard-pop"><strong>Prensa · Chicago Reader</strong><small>“Barcelona’s Alma Afrobeat Ensemble keep the spirit of afrobeat going strong”</small><a href="https://chicagoreader.com/chicago/barcelonas-alma-afrobeat-ensemble-keep-the-spirit-of-afrobeat-going-strong/Content?oid=71791613" target="_blank" rel="noopener">Leer artículo ↗</a></span></span> en 2018 y 2019: 25 conciertos en dos giras. Ha llevado su directo de Canarias a Oslo, París, Suiza, Andorra y Armenia, y ha pisado escenarios tan distintos como el Akron Civic Theatre, The Cedar o Martyrs' en Estados Unidos, y en Barcelona la Sala Apolo, Razzmatazz, el Poble Espanyol, el Jamboree, Luz de Gas, Tarantos, el Castell de Montjuïc, CosmoCaixa, el CCCB o el Liceu.</p>
+        <p class="body">Su <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, La voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> no se queda en casa. Como <span class="hovercard hovercard--link" tabindex="0">voz principal<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, La voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> de Alma Afrobeat Ensemble recorrió el Medio Oeste de <span class="hovercard hovercard--link" tabindex="0">Estados Unidos<span class="hovercard-pop"><strong>Prensa · Chicago Reader</strong><small>“Barcelona’s Alma Afrobeat Ensemble keep the spirit of afrobeat going strong”</small><a href="https://chicagoreader.com/chicago/barcelonas-alma-afrobeat-ensemble-keep-the-spirit-of-afrobeat-going-strong/Content?oid=71791613" target="_blank" rel="noopener">Leer artículo ↗</a></span></span> en 2018 y 2019: 25 conciertos en dos giras. Ha llevado su directo de Canarias a Oslo, París, Suiza, Andorra y Armenia, y ha pisado escenarios tan distintos como el Akron Civic Theatre, The Cedar o Martyrs' en Estados Unidos, y en Barcelona la Sala Apolo, Razzmatazz, el Poble Espanyol, el Jamboree, Luz de Gas, Tarantos, el Castell de Montjuïc, CosmoCaixa, el CCCB o el Liceu.</p>
         <p class="body">En solitario ha firmado <span class="hovercard" tabindex="0">MBANDE SOUND<span class="hovercard-pop"><img src="imgs/mbandeSound.jpg" alt="Portada de MBANDE SOUND (2017)"><small>MBANDE SOUND · 2017</small></span></span> (2017) y <span class="hovercard" tabindex="0">AFROMANTIK<span class="hovercard-pop"><img src="imgs/afromantik.jpg" alt="Portada de AFROMANTIK (2021)"><small>AFROMANTIK · 2021</small></span></span> (2021), y ha colaborado con artistas como Bocafloja. Ha pasado por el prime time de <span class="hovercard hovercard--link" tabindex="0">La Voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande en La Voz" onerror="this.style.display='none'"><strong>La Voz · Antena 3</strong><small>Marga Mbande en el prime time · Equipo Malú</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Ver vídeo ▶</a></span></span> (Antena 3, Equipo Malú), por La 2 de la mano de Macaco y por el cine, como una de las cuatro protagonistas del documental <span class="hovercard" tabindex="0">37 Grados<span class="hovercard-pop"><img src="imgs/37grados.jpg" alt="37 Grados, documental (Filmin)" onerror="this.style.display='none'"><small>37 Grados · documental · Filmin</small></span></span> (Filmin). Fuera del escenario impulsó las Cypha Sessions y fundó Afrolab Basement, jams con banda en directo de afrobeats, hip-hop y amapiano que hoy son punto de encuentro de la cultura afro y urbana de Barcelona.</p>
-        <p class="body">En 2027 presenta IGOMÁ, una obra de conservación y rescate de la lengua bapuku. Concebido como el hallazgo de una carta perdida en 1968 entre Guinea Ecuatorial y España, el proyecto transforma la memoria olvidada en baile, fuerza y canto. Un espectáculo de impacto inmediato donde su <span class="hovercard hovercard--link" tabindex="0">voz<span class="hovercard-pop"><img src="https://i.ytimg.com/vi/Ux33dhuaogI/hqdefault.jpg" alt="Marga Mbande, la voz en vivo" onerror="this.style.display='none'"><strong>La voz · en vivo</strong><small>Escucha a Marga Mbande en directo</small><a href="https://youtu.be/Ux33dhuaogI" target="_blank" rel="noopener">Escuchar ▶</a></span></span> pasa de la rotundidad más potente a la seda más íntima.</p>
+        <p class="body">En 2027 presenta IGOMÁ, una obra de conservación y rescate de la lengua bapuku. Concebido como el hallazgo de una carta perdida en 1968 entre Guinea Ecuatorial y España, el proyecto transforma la memoria olvidada en baile, fuerza y canto. Un espectáculo de impacto inmediato donde su voz pasa de la rotundidad más potente a la seda más íntima.</p>
         </div>
         <button class="copy-btn" type="button" onclick="copyBio('bio-larga', this)">Copiar</button>
       </div>
@@ -1057,7 +1078,47 @@
       <p class="body"><strong>Nota de sostenibilidad:</strong> este dossier está maquetado en formato vertical y optimizado en blanco y negro estricto para minimizar el consumo de tinta y tóner en impresiones de producción o salas.</p>
       <p class="eyebrow">Descarga / Impresión</p>
       <div class="actions">
-        <button class="action" type="button" onclick="window.print()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (solo rider · B/N)</button>
+        <button class="action" type="button" onclick="printRider()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (solo rider · B/N)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ 06 · NOTA DE PRENSA ════════ -->
+  <section class="page" id="page-nota">
+    <div class="card">
+      <div class="page-header">
+        <img src="imgs/MM_logo_white%20(1).png" alt="">
+        <h2 class="page-title"><span class="page-num">06</span>Nota de Prensa</h2>
+        <button class="back-btn" onclick="go('home')">← Volver</button>
+      </div>
+
+      <div class="bio-block">
+        <div id="nota-content">
+          <p class="eyebrow">Nota de prensa · IGOMÁ (2027)</p>
+          <p class="body bio-lead">Marga Mbande presenta IGOMÁ, un disco que rescata la lengua bapuku y la memoria entre Guinea Ecuatorial y España</p>
+          <p class="body"><strong>El single de adelanto, «Na Landi», se publica el 4 de diciembre de 2026; el álbum completo, ocho canciones de herencia familiar, llega el 19 de febrero de 2027. El proyecto se presenta en directo en cuarteto, con visuales propios.</strong></p>
+          <p class="body">Barcelona — Marga Mbande no se explica con cifras; se recorre como un mapa. Nacida en Barcelona, de raíces ndowe (kombe) de Guinea Ecuatorial, la cantante y compositora presenta ahora su proyecto más personal: IGOMÁ, un disco que recupera el bapuku, una lengua en peligro, como hilo entre la memoria familiar y la historia compartida entre Guinea Ecuatorial y España.</p>
+          <p class="body">El disco nace de una imagen concreta: una carta perdida en 1968 entre los dos países, que Mbande convierte en punto de partida de un trabajo de conservación cultural y lingüística. Cada canción recoge una historia distinta de esa herencia, y juntas dibujan un árbol genealógico cantado: hay un maestro al que se recuerda, una mirada al pasado colonial, un orgullo de familia que se mide en dotes, una carta de amor que atraviesa generaciones, un tío cuyo amor no llegó a puerto, y las historias que se contaban de boca en boca cuando Guinea Ecuatorial todavía era colonia. Ese equilibrio entre raíz y presente es también el del propio sonido del disco: una afrofusión con acento de afrosoul, donde la voz de Mbande —una voz que en cada escenario, del <a href="https://rototomsunsplash.com/" target="_blank" rel="noopener">Rototom Sunsplash</a> a un teatro de Barcelona, ha demostrado su capacidad de conectar con públicos muy distintos— hace de puente entre el bapuku que casi nadie canta ya y un oído acostumbrado al pop y a la escena internacional de world music.</p>
+          <p class="body"><strong>El disco, canción a canción</strong></p>
+          <div class="milestone"><div class="road">«Na Landi»</div><div class="desc">El single de adelanto.</div></div>
+          <div class="milestone"><div class="road">«Recordando al maestro»</div><div class="desc">Homenaje a una figura del bapuku mangala.</div></div>
+          <div class="milestone"><div class="road">«Utangani»</div><div class="desc">Una mirada al pasado colonial.</div></div>
+          <div class="milestone"><div class="road">«Mbanagoame»</div><div class="desc">El orgullo familiar contado a través de las dotes.</div></div>
+          <div class="milestone"><div class="road">«Itonde Jda Me»</div><div class="desc">Una carta de amor profundo.</div></div>
+          <div class="milestone"><div class="road">«Tinoco»</div><div class="desc">Historias populares.</div></div>
+          <div class="milestone"><div class="road">«Moana Moadjo»</div><div class="desc">La historia de amor fallida de su tío Pind.</div></div>
+          <div class="milestone"><div class="road">«Maria Nguabi»</div><div class="desc">Relatos del tiempo de la colonia.</div></div>
+          <p class="body">En directo, IGOMÁ se presenta en formato de cuarteto —voz, batería, guitarra y bajo—, con Marga Mbande como voz principal, y se acompaña de un despliegue visual creado específicamente para la gira.</p>
+          <p class="body">El proyecto llega después de más de veinte años de trayectoria: cofundadora en 2003 de Dlux, pioneras del R&amp;B en español; voz principal de Alma Afrobeat Ensemble en sus giras por el Medio Oeste de Estados Unidos (2018 y 2019, 25 conciertos); artista y maestra de ceremonias en tres ediciones consecutivas del <a href="https://rototomsunsplash.com/" target="_blank" rel="noopener">Rototom Sunsplash</a> (2017–2019); residente de las Noches Mágicas de la <a href="https://www.casabatllo.es/" target="_blank" rel="noopener">Casa Batlló</a>; protagonista del documental <a href="https://www.filmin.es/pelicula/37-grados" target="_blank" rel="noopener">37 Grados</a> (Filmin) y, en 2024, integrante del Equipo Malú en <a href="https://www.antena3.com/programas/la-voz/" target="_blank" rel="noopener">La Voz</a> (Antena 3). Con IGOMÁ, ese recorrido internacional se pone al servicio de una historia muy concreta: la suya.</p>
+          <p class="body">Contacto de prensa y programación: <a href="tel:+34629828479">+34 629 82 84 79</a> · <a href="mailto:info@gramophonerecords.es">info@gramophonerecords.es</a></p>
+        </div>
+        <button class="copy-btn" type="button" onclick="copyBio('nota-content', this)">Copiar nota</button>
+      </div>
+
+      <p class="eyebrow print-hide">Descarga / Impresión</p>
+      <div class="actions">
+        <button class="action" type="button" onclick="printNota()"><span class="ico">🖨</span>Imprimir / Guardar como PDF (solo nota · B/N vertical)</button>
+        <a class="action" href="nota_prensa.txt" download="NotaPrensa_IGOMA_MargaMbande.txt" onclick="downloadPhoto('nota_prensa.txt','NotaPrensa_IGOMA_MargaMbande.txt'); return false;"><span class="ico">⬇</span>Descargar nota (.txt)</a>
       </div>
     </div>
   </section>
@@ -1084,6 +1145,13 @@
 
     function onHash() {
       const h = window.location.hash.replace('#', '');
+      if (h === 'nota-print') {
+        // Atajo: carga la nota lista para imprimir (solo nota, B/N vertical)
+        document.body.classList.add('printing-nota');
+        render('nota');
+        return;
+      }
+      document.body.classList.remove('printing-nota');
       render(h || 'home');
     }
 
@@ -1115,6 +1183,24 @@
           a.click();
           a.remove();
         });
+    }
+
+    // Impresión B/N vertical: rider por defecto, nota con body.printing-nota
+    function printRider() {
+      document.body.classList.remove('printing-nota');
+      window.print();
+    }
+
+    function printNota() {
+      document.body.classList.add('printing-nota');
+      const cleanup = () => {
+        document.body.classList.remove('printing-nota');
+        window.removeEventListener('afterprint', cleanup);
+      };
+      window.addEventListener('afterprint', cleanup);
+      window.print();
+      // Respaldo por si afterprint no llega (p. ej. dialogo cancelado)
+      setTimeout(cleanup, 1500);
     }
 
     function copyBio(id, btn) {
