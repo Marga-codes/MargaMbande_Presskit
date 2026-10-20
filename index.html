@@ -718,7 +718,7 @@ t<html lang="es">
   }
 
   /* Botón acción / descarga */
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
   .action {
     display: inline-flex;
@@ -746,6 +746,32 @@ t<html lang="es">
   }
 
   .action .ico { color: var(--gold); }
+
+  .copy-btn {
+    margin: 22px 0 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(217,185,138,0.12);
+    border: 1px solid rgba(217,185,138,0.5);
+    border-radius: 50px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding: 11px 22px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .copy-btn:hover {
+    background: rgba(217,185,138,0.24);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
 
   @media (max-width: 600px) {
     .card { padding: 26px 20px; }
